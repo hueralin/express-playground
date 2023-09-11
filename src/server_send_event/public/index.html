@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Send Event</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.6/axios.min.js"></script>
+</head>
+<body>
+  <h2>Server Send Event</h2>
+  <ul id="ul"></ul>
+  <script>
+    const ul = document.getElementById('ul')
+
+    const sseClient = new EventSource('/sse')
+
+    sseClient.onmessage = function(res) {
+      const li = document.createElement('li')
+      li.innerHTML = res.data
+      ul.appendChild(li)
+    }
+  </script>
+</body>
+</html>

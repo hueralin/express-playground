@@ -5,13 +5,15 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "qrcode": "nodemon src/qrcode/app.js",
     "sse": "nodemon src/server_send_event/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

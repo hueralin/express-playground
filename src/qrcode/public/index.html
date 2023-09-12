@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>扫码登录</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.6/axios.min.js"></script>
+</head>
+<body>
+  <img id="qrcodeDom" alt="qrcode"/>
+  <br>
+  <div id="status"></div>
+  <script>
+    const qrcodeDom = document.getElementById('qrcodeDom')
+    const statusDom = document.getElementById('status')
+
+    let qrcodeId, timerId
+
+    axios.get('/qrcode/generate').then(res => {
+      qrcodeDom.src = res.data.data.data_url
+      qrcodeId = res.data.data.qrcode_id
+      check()
+    })
+
+    function check() {
+      axios.get('/qrcode/check?id=' + qrcodeId).then(res => {
+        const qrcodeInfo = res.data.data
+        switch(qrcodeInfo.status) {
+          case 'noscan':
+            statusDom.innerText = '未扫描'
+            break
+          case 'scan-wait-confirm':
+            statusDom.innerText = '等待确认'
+            break
+          case 'scan-confirm':
+            statusDom.innerText = '已确认'
+            break
+          case 'scan-cancel':
+            statusDom.innerText = '已取消'
+            break
+          case 'expired':
+            statusDom.innerText = '已过期'
+            break
+        }
+        if (qrcodeInfo.status === 'noscan' || qrcodeInfo.status === 'scan-wait-confirm') {
+          timerId = setTimeout(() => check(), 5000)
+        } else {
+          clearTimeout(timerId)
+          if (qrcodeInfo.status === 'scan-confirm') {
+            window.open('https://www.baidu.com', '_blank')
+          }
+        }
+      })
+    }
+  </script>
+</body>
+</html>

@@ -29,5 +29,5 @@ app.get('/sse', (req, res) => {
 })
 
 app.listen(3000, () => {
-  console.log('express is listening on 3000 port...')
+  console.log('Server Send Event: http://localhost:8080')
 })

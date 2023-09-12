@@ -6,13 +6,16 @@
   "main": "index.js",
   "scripts": {
     "qrcode": "nodemon src/qrcode/app.js",
-    "sse": "nodemon src/server_send_event/app.js"
+    "sse": "nodemon src/server_send_event/app.js",
+    "jwt": "nodemon src/json_web_token/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "qrcode": "^1.5.3"
   },
   "devDependencies": {

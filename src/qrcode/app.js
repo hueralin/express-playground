@@ -57,5 +57,5 @@ app.get('/qrcode/cancel', (req, res) => {
 })
 
 app.listen(8080, () => {
-  console.log('Qrcode server: http://localhost:8080')
+  console.log('qrcode: http://localhost:8080')
 })

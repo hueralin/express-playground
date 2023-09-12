@@ -29,5 +29,5 @@ app.get('/sse', (req, res) => {
 })
 
 app.listen(3000, () => {
-  console.log('Server Send Event: http://localhost:8080')
+  console.log('server send event: http://localhost:8080')
 })

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>json web token</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.6/axios.min.js"></script>
+</head>
+<body>
+  home
+  <br>
+  <button id="needLogin">请求需要登录的接口</button>
+  <script>
+    const userInfo = localStorage.getItem('user_info')
+    if (!userInfo) {
+      location.href = '/login.html'
+    }
+
+    const needLogin = document.getElementById('needLogin')
+    needLogin.addEventListener('click', () => {
+      const token = localStorage.getItem('access_token')
+      axios.get('/need-login', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      }).then((res) => {
+        const { code, msg } = res.data
+        if (code === 0) {
+          console.log('oh yeah~')  
+        }
+      }).catch(err => {
+        console.log(err)
+        if (err.response.status === 401) {
+          const refreshToken = localStorage.getItem('refresh_token')
+          axios.get('/refresh', { params: { refresh_token: refreshToken } }).then(res => {
+            localStorage.setItem('user_info', JSON.stringify(res.data.data.user_info))
+            localStorage.setItem('access_token', res.data.data.access_token)
+            localStorage.setItem('refresh_token', res.data.data.refresh_token)
+            const accessToken = localStorage.getItem('access_token')
+            axios.get('/need-login', {
+              headers: {
+                'Authorization': 'Bearer ' + accessToken
+              }
+            }).then((res) => {
+              console.log('need-login success')
+            })
+          })
+        }
+      })
+    })
+  </script>
+</body>
+</html>

@@ -7,7 +7,9 @@
   "scripts": {
     "qrcode": "nodemon src/qrcode/app.js",
     "sse": "nodemon src/server_send_event/app.js",
-    "jwt": "nodemon src/json_web_token/app.js"
+    "jwt": "nodemon src/json_web_token/app.js",
+    "content-type": "nodemon src/content_type/app.js",
+    "cookie-session": "nodemon src/cookie_session/app.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
     "qrcode": "^1.5.3"
   },

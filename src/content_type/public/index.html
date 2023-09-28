@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Content Type</title>
+</head>
+<body>
+	<div>
+    <button onclick="downloadFile()">下载</button>
+  </div>
+
+  <script>
+    function downloadFile() {
+      const xhr = new XMLHttpRequest()
+      console.log('state 1: ', xhr.readyState) // 0
+      xhr.onload = () => {
+        console.log('state 5: ', xhr.readyState) // 4
+				const blob = xhr.response
+        console.log(blob)
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.style.display = 'none'
+        a.href = url
+        a.download = 'xxx'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      }
+      xhr.open('GET', '/download2/pic.jpg')
+      console.log('state 2: ', xhr.readyState) // 1
+      xhr.responseType = 'blob'
+      console.log('state 3: ', xhr.readyState) // 1
+      xhr.send()
+      console.log('state 4: ', xhr.readyState) // 1
+    }
+  </script>
+</body>
+</html>

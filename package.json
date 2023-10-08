@@ -10,7 +10,8 @@
     "jwt": "nodemon src/json_web_token/app.js",
     "content-type": "nodemon src/content_type/app.js",
     "cookie-session": "nodemon src/cookie_session/app.js",
-    "template-engine": "nodemon src/template_engine/app.js"
+    "template-engine": "nodemon src/template_engine/app.js",
+    "passport-local": "nodemon src/passport-local/app.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,8 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
     "mime": "^3.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
